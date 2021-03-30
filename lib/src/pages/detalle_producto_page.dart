@@ -20,7 +20,13 @@ class DetalleProductoPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: Column(
-                children: [_DescripcionProducto(), _PanelCompra(),_ColoresZapatilla()],
+                children: [
+                  _DescripcionProducto(),
+                  _PanelCompra(),
+                  _ColoresZapatilla(),
+                  SizedBox(height: 40.0,),
+                  _BotonesInferiores()
+                ],
               ),
             )
           ],
@@ -37,7 +43,7 @@ class _ContenedorProducto extends StatelessWidget {
         Provider.of<ProductoProvider>(context).colorZapatillaSeleccionado;
     return Container(
       width: double.infinity,
-      height: 500.0,
+      height: 450.0,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(50.0),
         color: Color(0xffFFD54F),
@@ -122,9 +128,23 @@ class _PanelCompra extends StatelessWidget {
 }
 
 class _ColoresZapatilla extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-    return Container(width: double.infinity,height: 30.0,color: Colors.red,);
+    return Container(
+      width: double.infinity,
+      height: 50.0,
+      color: Colors.red,
+    );
+  }
+}
+
+class _BotonesInferiores extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 70.0,
+      color: Colors.blueAccent,
+    );
   }
 }
