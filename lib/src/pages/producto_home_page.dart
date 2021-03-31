@@ -1,36 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shoes_app/helpers/helpers.dart';
 import 'package:shoes_app/provider/producto_provider.dart';
 
 class ProductoHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    cambiarStatusDark();
+    final color =
+        Provider.of<ProductoProvider>(context).colorZapatillaSeleccionado;
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            SizedBox(
-              height: 80.0,
-            ),
-            _Header(),
-            SizedBox(
-              height: 20.0,
-            ),
-            Hero(tag: 'imagen', child: _ContenedorProducto()),
-            SizedBox(
-              height: 30.0,
-            ),
-            _DescripcionProducto(),
-            SizedBox(
-              height: 30.0,
-            ),
-            _PanelCompra(),
-            SizedBox(
-              height: 10.0,
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              SizedBox(
+                height: 80.0,
+              ),
+              _Header(),
+              SizedBox(
+                height: 20.0,
+              ),
+              Hero(tag: color, child: _ContenedorProducto()),
+              SizedBox(
+                height: 30.0,
+              ),
+              _DescripcionProducto(),
+              SizedBox(
+                height: 30.0,
+              ),
+              _PanelCompra(),
+              SizedBox(
+                height: 10.0,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -149,33 +155,34 @@ Widget _iconoTamanoZapatilla(String tamano, BuildContext context) {
   );
 }
 
-  class _DescripcionProducto extends StatelessWidget {
-    @override
-    Widget build(BuildContext context) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            'Nike Air Max 720',
-            style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            height: 20.0,
-          ),
-          Text(
-            'The Nike Air Max 720 goes bigger than  over before with Nike\'s tallest Air unit yet offtering more air  underfoot for unimaginable, all-day comfort Has Air...',
-            style: TextStyle(fontSize: 17.0, color: Colors.grey),
-          ),
-        ],
-      );
-    }
+class _DescripcionProducto extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Nike Air Max 720',
+          style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: 20.0,
+        ),
+        Text(
+          'The Nike Air Max 720 goes bigger than  over before with Nike\'s tallest Air unit yet offtering more air  underfoot for unimaginable, all-day comfort Has Air...',
+          style: TextStyle(fontSize: 17.0, color: Colors.grey),
+        ),
+      ],
+    );
   }
+}
 
 class _PanelCompra extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 300),
       height: 70.0,
       width: double.infinity,
       decoration: BoxDecoration(
@@ -191,15 +198,18 @@ class _PanelCompra extends StatelessWidget {
             style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
           ),
           Expanded(child: SizedBox()),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text('Add to cart'),
-            style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all<Size>(Size(120, 40)),
-                elevation: MaterialStateProperty.all<double>(0),
-                backgroundColor: MaterialStateProperty.all(Color(0xffFF9F00)),
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)))),
+          Hero(
+            tag: 'buy',
+            child: ElevatedButton(
+              onPressed: () {},
+              child: Text('Add to cart'),
+              style: ButtonStyle(
+                  minimumSize: MaterialStateProperty.all<Size>(Size(120, 40)),
+                  elevation: MaterialStateProperty.all<double>(0),
+                  backgroundColor: MaterialStateProperty.all(Color(0xffFF9F00)),
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)))),
+            ),
           ),
           SizedBox(
             width: 30.0,
